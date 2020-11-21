@@ -3,9 +3,9 @@ package app
 import (
 	"encoding/json"
 	"github.com/go-chi/chi"
-	"log"
 	"net/http"
 	"rest/pkg/offers"
+	"rest/pkg/rest"
 	"strconv"
 )
 
@@ -38,16 +38,10 @@ func (s *Server) handleGetOffers(writer http.ResponseWriter, request *http.Reque
 		return
 	}
 
-	data, err := json.Marshal(items)
+	err = rest.WriteAsJSON(writer,items)
 	if err != nil {
 		http.Error(writer, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	_, err = writer.Write(data)
-	if err != nil {
-		log.Print(err)
 	}
 }
 
@@ -66,16 +60,10 @@ func (s *Server) handleGetOfferByID(writer http.ResponseWriter, request *http.Re
 		return
 	}
 
-	data, err := json.Marshal(item)
+	err = rest.WriteAsJSON(writer,item)
 	if err != nil {
 		http.Error(writer, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	_, err = writer.Write(data)
-	if err != nil {
-		log.Print(err)
 	}
 }
 
@@ -93,16 +81,10 @@ func (s *Server) handleSaveOffer(writer http.ResponseWriter, request *http.Reque
 		return
 	}
 
-	data, err := json.Marshal(item)
+	err = rest.WriteAsJSON(writer,item)
 	if err != nil {
 		http.Error(writer, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	_, err = writer.Write(data)
-	if err != nil {
-		log.Print(err)
 	}
 }
 
@@ -121,15 +103,9 @@ func (s *Server) handleDeleteOfferByID(writer http.ResponseWriter, request *http
 		return
 	}
 
-	data, err := json.Marshal(item)
+	err = rest.WriteAsJSON(writer,item)
 	if err != nil {
 		http.Error(writer, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	_, err = writer.Write(data)
-	if err != nil {
-		log.Print(err)
 	}
 }
